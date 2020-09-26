@@ -11,7 +11,7 @@ public class MainController {
     @GetMapping("/")
     public String greeting(Model model) {
         model.addAttribute("title", "Main page");
-        return "index";
+        return "greeting";
     }
 
 }
