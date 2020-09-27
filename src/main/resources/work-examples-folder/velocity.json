@@ -1,0 +1,100 @@
+{
+  "bug-database": "http://issues.apache.org/jira/browse/VELOCITY",
+  "category": "library",
+  "created": "2006-11-21",
+  "description": "Velocity is a Java-based template engine. It permits anyone to use a simple yet powerful template language to reference objects defined in Java code.\n\nWhen Velocity is used for web development, Web designers can work in parallel with Java programmers to develop web sites according to the Model-View-Controller (MVC) model, meaning that web page designers can focus solely on creating a site that looks good, and programmers can focus solely on writing top-notch code. Velocity separates Java code from the web pages, making the web site more maintainable over its lifespan and providing a viable alternative to Java Server Pages (JSPs) or PHP. ",
+  "doap": "http://svn.apache.org/repos/asf/velocity/site/site/doap_engine.rdf",
+  "download-page": "http://velocity.apache.org/download.cgi",
+  "homepage": "http://velocity.apache.org",
+  "license": "http://usefulinc.com/doap/licenses/asl20",
+  "mailing-list": "http://velocity.apache.org/mail-lists.html",
+  "name": "Apache Velocity",
+  "pmc": "velocity",
+  "programming-language": "Java",
+  "release": [
+    {
+      "created": "20-02-02",
+      "name": "Velocity 2.2",
+      "revision": "2.2"
+    },
+    {
+      "created": "2019-03-31",
+      "name": "Velocity 2.1",
+      "revision": "2.1"
+    },
+    {
+      "created": "2017-08-06",
+      "name": "Velocity 2.0",
+      "revision": "2.0"
+    },
+    {
+      "created": "2010-11-29",
+      "name": "Velocity 1.7",
+      "revision": "1.7"
+    },
+    {
+      "created": "2010-05-10",
+      "name": "Velocity 1.6.4",
+      "revision": "1.6.4"
+    },
+    {
+      "created": "2010-04-16",
+      "name": "Velocity 1.7 beta1",
+      "revision": "1.7 beta1"
+    },
+    {
+      "created": "2009-12-16",
+      "name": "Velocity 1.6.3",
+      "revision": "1.6.3"
+    },
+    {
+      "created": "2009-03-18",
+      "name": "Velocity 1.6.2",
+      "revision": "1.6.2"
+    },
+    {
+      "created": "2008-12-15",
+      "name": "Velocity 1.6.1",
+      "revision": "1.6.1"
+    },
+    {
+      "created": "2008-12-01",
+      "name": "Velocity 1.6",
+      "revision": "1.6"
+    },
+    {
+      "created": "2008-10-27",
+      "name": "Velocity 1.6 beta2",
+      "revision": "1.6 beta2"
+    },
+    {
+      "created": "2008-09-22",
+      "name": "Velocity 1.6 beta1",
+      "revision": "1.6 beta1"
+    },
+    {
+      "created": "2007-03-06",
+      "name": "Latest Stable Release",
+      "revision": "1.5"
+    },
+    {
+      "created": "2006-11-24",
+      "name": "Velocity 1.5 beta2",
+      "revision": "1.5 beta2"
+    },
+    {
+      "created": "2006-09-13",
+      "name": "Velocity 1.5 beta1",
+      "revision": "1.5 beta1"
+    },
+    {
+      "created": "2004-04-14",
+      "name": "Velocity 1.4",
+      "revision": "1.4"
+    }
+  ],
+  "repository": [
+    "http://svn.apache.org/repos/asf/velocity/engine/trunk"
+  ],
+  "shortdesc": "Java-based template engine"
+}
