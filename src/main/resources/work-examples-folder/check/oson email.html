@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <style>
+     * {
+      font-family: arial;
+      font-size: 14pt;
+     }
+    </style>
+</head>
+<body style="font-family:Open_Sans, serif">
+<div>
+    <div>
+        <table style="border:1px solid #CCC; width: 500px">
+                <tr>
+                    <td colspan="2" style="text-align:center; padding-top:20px; padding-bottom:20px;">
+                       <img src="https://widget.intervale.ru/assets/resources/logo/${partner_id}.png">
+                    </td>
+               </tr>
+
+#if($payment_status == 'SUCCESS')
+    <tr id="payment_status">
+        <td>Результат: </td><td><p style="color:green">ОПЕРАЦИЯ ВЫПОЛНЕНА УСПЕШНО</p></td>
+    </tr>
+#end
+#if($payment_status == 'FAILED')
+    <tr id="payment_status">
+        <td>Результат: </td><td><p style="color:red">ОПЕРАЦИЯ НЕ ВЫПОЛНЕНА</p></td>
+    </tr>
+#end
+#if($payment_status == 'UNKNOWN')
+    <tr id="payment_status">
+        <td>Результат: </td><td><p style="color:red">ОПЕРАЦИЯ В ОБРАБОТКЕ (для уточнения статуса обратитесь в службу поддержки)</p></td>
+    </tr>
+#end
+ #if($payment_src_values.size()>0)
+    <tr>
+      <td colspan="2" style="text-align:left">
+        <h4>Данные отправителя: </h4>
+      </td>
+    </tr>
+  #foreach($item in $payment_src_values.entrySet())
+    #if($payment_src_titles)
+      <tr><td>$payment_src_titles.get($item.getKey())</td><td>$item.getValue()</td></tr>
+    #else
+      <tr><td>$item.getKey()</td><td>$item.getValue()</td></tr>
+    #end
+  #end
+#end
+
+#if($payment_dst_values.size()>0)
+  <tr>
+    <td colspan="2" style="text-align:left">
+      <h4>Данные получателя: </h4>
+    </td>
+  </tr>
+  #foreach($item in $payment_dst_values.entrySet())
+    #if($payment_dst_titles)
+      <tr><td>$payment_dst_titles.get($item.getKey())</td><td>$item.getValue()</td></tr>
+    #else
+      <tr><td>$item.getKey()</td><td>$item.getValue()</td></tr>
+    #end
+  #end
+#end
+                  
+#if($payment_parameter_values.size()>0)
+  #foreach($item in $payment_parameter_values.entrySet())
+    #if($payment_parameter_titles)
+      <tr><td>$payment_parameter_titles.get($item.getKey())</td><td>$item.getValue()</td></tr>
+    #else
+      <tr><td>$item.getKey()</td><td>$item.getValue()</td></tr>
+    #end
+  #end
+#end
+
+
+  
+                    <tr>
+                      <td>Номер операции</td>
+                      <td>$operation_num</td>
+                    </tr>		
+					<tr>
+						<td>Дата</td>
+						<td>$dateTool.format("dd.MM.yyyy",$payment_detail_finish_date)</td>
+					</tr>
+					<tr>
+						<td>Время</td>
+						<td>$dateTool.format("HH:mm",$payment_detail_finish_date)&nbsp;(MSK)</td>
+					</tr>
+                    	#if ( ${payment_detail_rrn} )
+							<tr>
+								<td>Код операции</td>
+								<td>${payment_detail_rrn}</td>
+							</tr>
+						#end
+
+						#if ( $payment_detail_auth_code )
+							<tr>
+								<td>Код авторизации</td>
+								<td>$payment_detail_auth_code</td>
+							</tr>
+		     			#end					
+## ------------------------- ИТОГОВЫЕ СУММЫ -------------------------
+					<tr>
+						<td>Карта отправителя</td>
+						<td>$payment_detail_source</td>
+					</tr>	
+                    #if ( $payment_detail_destination )
+                        #if ($payment_id.startsWith("C2C_IBT")|| $payment_id.startsWith("C2C_KM_IBT"))
+					    <tr>
+						      <td>Пролучатель</td>
+						      <td>$payment_detail_destination</td>
+					    </tr>													
+					    #else
+						 <tr>
+						     ## <td>Получатель</td>
+						     ## <td>$payment_detail_destination</td>
+					    </tr>
+						#end
+                     #end
+                     
+  					#if ($payment_id.startsWith("C2C_IBT"))
+                    <tr>
+                       		##<td>Сумма1</td>
+							##<td>$payment_parameter_values.get('transferAmount')</td>
+                        	##<td>$Amount.toMajor($trx.params.transferAmount, $trx.getCurrency())</td>
+						</tr>
+            		#else
+                    #end
+                   
+                   #if ($payment_id.startsWith("C2C_KM_IBT"))
+                    <tr>
+						<td>Сумма2</td>
+						<td>$payment_detail_amount $payment_detail_currency </td>##$payment_parameter_values.get('quoteCurrency')</td>
+					</tr>
+                   #else
+                   #end
+                   
+                   #if ( $payment_parameter_values.get('quoteCurrency') != 'RUB' && $payment_detail_currency != 'RUB' && !($payment_id.startsWith("C2C_KM_IBT")) && !($payment_id.startsWith("C2C_IBT")))
+                    	<tr>
+                       		<td>Сумма3</td>
+                            <td>$payment_detail_amount $payment_detail_currency</td>
+							##<td>$payment_parameter_values.get('transferAmount')</td>
+                        	##<td>$Amount.toMajor($trx.params.transferAmount, $trx.getCurrency())</td>
+						</tr>
+						#else
+                        	#if ( $payment_detail_currency != 'RUB')
+                            	<tr>
+									<td>Сумма4</td>
+									<td>$payment_detail_amount $payment_parameter_values.get('quoteCurrency')</td>
+								</tr>
+                        	#else
+                             	<tr>
+									##<td>Сумма5</td>
+									##<td>$payment_detail_amount $payment_detail_currency</td>
+								</tr>
+                            #end
+
+						#end
+                    
+                    
+                    
+
+					##<tr>					
+					##<td>Размер комиссии</td>
+					##	<td>$payment_detail_commission $payment_detail_currency</td>
+					##</tr>
+
+						#if ( $payment_parameter_values.get('quoteCurrency') == 'RUB' )
+					    <tr>
+						      <td>Размер комиссии</td>
+						      <td>$payment_detail_commission $payment_detail_currency</td>
+					    </tr>													
+					    #else
+						 <tr>
+						      
+					    </tr>
+						#end
+
+					<tr>
+						<td style="padding-top:20px;"><strong>Итоговая сумма</strong></td>
+						<td style="padding-top:20px;"><strong>$payment_detail_amount_full $payment_detail_currency</strong></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<hr style="color:#CCC"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2" style="text-align:center">
+							<div style="color:#666">
+								<div>Спасибо!</div>
+								<div style="padding-top:20px;">Служба поддержки: <span><strong>+7 (495) 660-63-00</strong></span></div>
+							</div>
+							<div><a href="mailto:helpdesk@intervale.ru">helpdesk@intervale.ru</a></div>
+						</td>
+					</tr>	
+		</table>
+	</div>
+</div>
+</body>
+</html>
